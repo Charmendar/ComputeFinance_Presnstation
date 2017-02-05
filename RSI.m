@@ -74,13 +74,21 @@ weight_BaBa=zeros(Day_count,1);
 weight_IBM=zeros(Day_count,1);
 weight_TSLA=zeros(Day_count,1);
 Total_Value=zeros(Day_count,1);
+Total_Value_eq=zeros(Day_count,1);
 Total_Value_SP500=zeros(Day_count,1);
+
 Share_BaBa=(Initual_Value/3)/BaBa_2015(1);
 Share_IBM=(Initual_Value/3)/IBM_2015(1);
 Share_TSLA=(Initual_Value/3)/TSLA_2015(1);
+
+Share_BaBa_eq=(Initual_Value/3)/BaBa_2015(1);
+Share_IBM_eq=(Initual_Value/3)/IBM_2015(1);
+Share_TSLA_eq=(Initual_Value/3)/TSLA_2015(1);
+
 Share_SP500=Initual_Value/Data_2015(1);
 for day_index=1:Day_count
     Total_Value(day_index)=BaBa_2015(day_index)*Share_BaBa+IBM_2015(day_index)*Share_IBM+TSLA_2015(day_index)*Share_TSLA;
+    Total_Value_eq(day_index)=BaBa_2015(day_index)*Share_BaBa_eq+IBM_2015(day_index)*Share_IBM_eq+TSLA_2015(day_index)*Share_TSLA_eq;
     Total_Value_SP500(day_index)=Share_SP500*Data_2015(day_index);
     if day_index<=Interval
         weight_BaBa(day_index)=1/3;
@@ -88,13 +96,6 @@ for day_index=1:Day_count
         weight_TSLA(day_index)=1/3;
     else
         %Start Rebalance Porfolio
-        % We have total value of previous day in hand
-        % just neet to split them base on the prediction of current day
-        % requirement: 
-        %      Max number_BABA*Price_BABA_prediction+number_IBM*Price_IBM_prediction+number_TLSA*Price_TLSA_prediction
-        % constraint: 
-        %      number_BABA*Price_BABA_now+number_IBM*Price_IBM_now+number_TLSA*Price_TLSA_now<=TotalValue
-        % using intlinprog to solve this
         X=linprog([RSI_BaBa(day_index),RSI_IBM(day_index),RSI_TSLA(day_index)],[],[],[1, 1, 1],1,[0,0,0],[1,1,1] );
         weight_BaBa(day_index)=X(1);
         weight_IBM(day_index)=X(2);
@@ -103,6 +104,10 @@ for day_index=1:Day_count
     Share_BaBa=Total_Value(day_index)*weight_BaBa(day_index)/BaBa_2015(day_index);
     Share_IBM=Total_Value(day_index)*weight_IBM(day_index)/IBM_2015(day_index);
     Share_TSLA=Total_Value(day_index)*weight_TSLA(day_index)/TSLA_2015(day_index);
+    
+    Share_BaBa_eq=Total_Value(day_index)*(1/3)/BaBa_2015(day_index);
+    Share_IBM_eq=Total_Value(day_index)*(1/3)/IBM_2015(day_index);
+    Share_TSLA_eq=Total_Value(day_index)*(1/3)/TSLA_2015(day_index);
    
 end
 
@@ -113,11 +118,24 @@ end
 figure
 plot(Total_Value)
 hold on
+plot(Total_Value_eq)
+hold on
 plot(Total_Value_SP500)
 hold off
-legend('show','Portfolio','SP500')
+legend('show','Portfolio','equal weight','SP500')
 xlabel('Days')
 ylabel('Total Value(dollars)')
+
+figure
+plot(BaBa_2015)
+hold on
+plot(IBM_2015)
+hold on 
+plot(TSLA_2015)
+hold off
+legend('show','BaBa','IBM','TSLA')
+xlabel('Days')
+ylabel('Price(dollars)')
 
 figure
 plot(weight_BaBa)
