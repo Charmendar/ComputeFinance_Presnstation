@@ -51,6 +51,7 @@ Num_TSLA=zeros(Day_count,1);
 Total_Value=zeros(Day_count,1);
 Total_Value_Actual=zeros(Day_count,1);
 Total_Value_SP500=zeros(Day_count,1);
+Total_Value_eq=zeros(Day_count,1);
 %%Initual porfolio
 Num_BaBa(1:Interval)=(Initual_Value/3)/BaBa_2015(1);
 Num_IBM(1:Interval)=(Initual_Value/3)/IBM_2015(1);
@@ -62,6 +63,7 @@ for day_index_2=1:Day_count
         Total_Value(day_index_2)=BaBa_2015(day_index_2)*Num_BaBa(day_index_2)+IBM_2015(day_index_2)*Num_IBM(day_index_2)+TSLA_2015(day_index_2)*Num_TSLA(day_index_2);
         Total_Value_Actual(day_index_2)=BaBa_2015(day_index_2)*Num_BaBa(day_index_2)+IBM_2015(day_index_2)*Num_IBM(day_index_2)+TSLA_2015(day_index_2)*Num_TSLA(day_index_2);
         Total_Value_SP500(day_index_2)=Share_SP500*Data_2015(day_index_2);
+        Total_Value_eq(day_index_2)=Num_BaBa(day_index_2)*BaBa_2015(day_index_2)+Num_IBM(day_index_2)*IBM_2015(day_index_2)+Num_TSLA(day_index_2)*TSLA_2015(day_index_2);      
     else
         %Start Rebalance Porfolio
         % We have total value of previous day in hand
@@ -75,6 +77,9 @@ for day_index_2=1:Day_count
         Num_BaBa(day_index_2)=X(1);
         Num_IBM(day_index_2)=X(2);
         Num_TSLA(day_index_2)=X(3);
+        
+        %equal weight part
+        Total_Value_eq(day_index_2)=Total_Value_eq(day_index_2-1)/3/BaBa_2015(day_index_2-1)*BaBa_2015(day_index_2)+Total_Value_eq(day_index_2-1)/3/IBM_2015(day_index_2-1)*IBM_2015(day_index_2)+Total_Value_eq(day_index_2-1)/3/TSLA_2015(day_index_2-1)*TSLA_2015(day_index_2);      
         Total_Value(day_index_2)=SMA_BaBa(day_index_2)*Num_BaBa(day_index_2)+SMA_IBM(day_index_2)*Num_IBM(day_index_2)+SMA_TSLA(day_index_2)*Num_TSLA(day_index_2);
         Total_Value_Actual(day_index_2)=BaBa_2015(day_index_2)*Num_BaBa(day_index_2)+IBM_2015(day_index_2)*Num_IBM(day_index_2)+TSLA_2015(day_index_2)*Num_TSLA(day_index_2);
         Total_Value_SP500(day_index_2)=Share_SP500*Data_2015(day_index_2);
@@ -86,13 +91,13 @@ end
 
 %plot total value
 figure
-plot(Total_Value)
+plot(Total_Value_eq)
 hold on
 plot(Total_Value_Actual)
 hold on
 plot(Total_Value_SP500)
 hold off
-legend('show','Expected Total Worth','Actual Total Worth','sp500')
+legend('show','Equal Weight','Portfolio','sp500')
 xlabel('Days')
 ylabel('Total Value(dollars)')
 

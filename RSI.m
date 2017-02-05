@@ -105,9 +105,9 @@ for day_index=1:Day_count
     Share_IBM=Total_Value(day_index)*weight_IBM(day_index)/IBM_2015(day_index);
     Share_TSLA=Total_Value(day_index)*weight_TSLA(day_index)/TSLA_2015(day_index);
     
-    Share_BaBa_eq=Total_Value(day_index)*(1/3)/BaBa_2015(day_index);
-    Share_IBM_eq=Total_Value(day_index)*(1/3)/IBM_2015(day_index);
-    Share_TSLA_eq=Total_Value(day_index)*(1/3)/TSLA_2015(day_index);
+    Share_BaBa_eq=Total_Value_eq(day_index)*(1/3)/BaBa_2015(day_index);
+    Share_IBM_eq=Total_Value_eq(day_index)*(1/3)/IBM_2015(day_index);
+    Share_TSLA_eq=Total_Value_eq(day_index)*(1/3)/TSLA_2015(day_index);
    
 end
 
