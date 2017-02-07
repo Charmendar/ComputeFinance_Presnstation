@@ -74,18 +74,6 @@ for day_index=1:Day_count
 end
 
 %% Plot
-%Alibaba
-figure
-plot(SMA_BaBa_S)
-hold on
-plot(SMA_BaBa_L)
-hold on
-plot(BaBa_2015)
-hold off
-legend('show','Shor-term SMA','Long-term SMA','Real Price')
-xlabel('Days')
-ylabel('Price(dollars)')
-title('Alibaba Year 2015')
 
 %IBM
 figure
@@ -95,20 +83,34 @@ plot(SMA_IBM_L)
 hold on
 plot(IBM_2015)
 hold off
-legend('show','Shor-term SMA','Long-term SMA','Real Price')
+legend('show','Short-term SMA','Long-term SMA','Real Price')
+% legend('show','Long-term SMA','Real Price')
 xlabel('Days')
 ylabel('Price(dollars)')
 title('IBM Year 2015')
 
-%TSLA
-figure
-plot(SMA_TSLA_S)
-hold on
-plot(SMA_TSLA_L)
-hold on
-plot(TSLA_2015)
-hold off
-legend('show','Shor-term SMA','Long-term SMA','Real Price')
-xlabel('Days')
-ylabel('Price(dollars)')
-title('TSLA Year 2015')
+% % commment the following for a single stock illustration
+% figure
+% plot(SMA_BaBa_S)
+% hold on
+% plot(SMA_BaBa_L)
+% hold on
+% plot(BaBa_2015)
+% hold off
+% legend('show','Shor-term SMA','Long-term SMA','Real Price')
+% xlabel('Days')
+% ylabel('Price(dollars)')
+% title('Alibaba Year 2015')
+% 
+% %TSLA
+% figure
+% plot(SMA_TSLA_S)
+% hold on
+% plot(SMA_TSLA_L)
+% hold on
+% plot(TSLA_2015)
+% hold off
+% legend('show','Shor-term SMA','Long-term SMA','Real Price')
+% xlabel('Days')
+% ylabel('Price(dollars)')
+% title('TSLA Year 2015')
