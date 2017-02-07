@@ -121,18 +121,18 @@ hold off
 legend('show','Portfolio','equal weight','SP500')
 xlabel('Days')
 ylabel('Total Value(dollars)')
-% 
-% figure
-% plot(BaBa_2015)
-% hold on
-% plot(IBM_2015)
-% hold on 
-% plot(TSLA_2015)
-% hold off
-% legend('show','BaBa','IBM','TSLA')
-% xlabel('Days')
-% ylabel('Price(dollars)')
-% 
+
+figure
+plot(BaBa_2016)
+hold on
+plot(IBM_2016)
+hold on 
+plot(TSLA_2016)
+hold off
+legend('show','BaBa','IBM','TSLA')
+xlabel('Days')
+ylabel('Price(dollars)')
+
 % figure
 % plot(weight_BaBa)
 % hold on 
