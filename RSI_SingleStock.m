@@ -24,8 +24,8 @@ sell_dates = [];
 sell_prices = [];
 sell_rsi = [];
 
-for count=Interval+2:Day_count
-    temp_IBM=IBM_2016(count-Interval-1:count-1);
+for count=Interval+1:Day_count
+    temp_IBM=IBM_2016(count-Interval:count-1);
     RSI_IBM(count)=RSI(temp_IBM);
     if count > 1 && RSI_IBM(count-1) > 30 && RSI_IBM(count) <= 30
         buy_dates = [buy_dates count];
